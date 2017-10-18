@@ -53,4 +53,4 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## CSS
 
-This app uses the semantic-ui-react package.  I've only included the default semantic theme CSS to reduce the number of files.
+This app uses the [semantic-ui-react](https://react.semantic-ui.com/introduction) package.  I've only included the default semantic theme CSS to reduce the number of files.
