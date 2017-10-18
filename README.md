@@ -4,12 +4,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 From the root, run:
 
-### npm install
+### `npm install`
 
 Then change directories into the api-server folder and run:
 
-### npm install
-### node server
+### `npm install`
+### `node server`
 
 This will start the backend api-server.  Details for the api-server are in it's own README file.  After the api-server is running, start up the main app by running a script from below from the root directory.
 
