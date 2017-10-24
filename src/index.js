@@ -24,12 +24,12 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const initialState = {
   categories: [],
   posts: {
-    listAll: [],
     currentViewingPost: null,
-    byCategory: []
+    postsMap: {}
   },
   comments: {
-    currentViewingComments: []
+    currentViewingComments: [],
+    commentMapCount: {}
   }
 }
 

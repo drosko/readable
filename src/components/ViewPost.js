@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Container, Comment, Header, Button, Divider } from 'semantic-ui-react';
 import { getSinglePost } from '../actions/posts';
 import { getPostComments } from '../actions/comments';
-import { deletePost } from '../utils/api';
+import { deleteDeletePost } from '../utils/api';
 
 import PostComment from './PostComment';
 import VoteScore from './VoteScore';
@@ -19,12 +19,16 @@ class ViewPost extends Component {
   }
 
   deletePost() {
-    deletePost(this.props.match.params.id).then(this.props.history.replace('/'));
+    deleteDeletePost(this.props.match.params.id).then(this.props.history.replace('/'));
     return false;
   }
 
   render() {
     const { post } = this.props;
+
+    if(post && !post.author) {
+      this.props.history.replace('/notfound');  
+    }
 
     return (
       <div>
@@ -69,11 +73,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    getSinglePost: (postId) => dispatch(getSinglePost(postId)),
-    getPostComments: (postId) => dispatch(getPostComments(postId))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ViewPost);
+export default connect(mapStateToProps, { getSinglePost, getPostComments })(ViewPost);

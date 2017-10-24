@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import { Container, Dropdown, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
+import { getCategories } from '../actions/categories';
 
 class TopBar extends Component {
 
+  componentDidMount() {
+    this.props.getCategories();
+  }
+
   render() {
-    console.log(this.props);
     return (
       <Menu fixed='top' inverted>
         <Container>
@@ -37,4 +41,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, null)(TopBar);
+export default connect(mapStateToProps, { getCategories })(TopBar);

@@ -124,13 +124,4 @@ class PostComment extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    editComment: (commentObj) => dispatch(editComment(commentObj)),
-    addComment: (commentObj) => dispatch(addComment(commentObj)),
-    deleteComment: (commentId) => dispatch(deleteComment(commentId)),
-    voteOnComment: (commentId, option) => dispatch(voteOnComment(commentId, option))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(PostComment);
+export default connect(null, { editComment, addComment, deleteComment, voteOnComment })(PostComment);

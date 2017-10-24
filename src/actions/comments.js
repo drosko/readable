@@ -13,7 +13,7 @@ export const DELETE_COMMENT_SUCCESS = 'DELETE_COMMENT_SUCCESS';
 export const VOTE_ON_COMMENT_SUCCESS = 'VOTE_ON_COMMENT_SUCCESS';
 
 export const getPostComments = postId => dispatch => (
-  fetchPostComments(postId).then(res => dispatch(receivePostComments(res)))
+  fetchPostComments(postId).then(res => dispatch(receivePostComments(res, postId)))
 )
 
 export const editComment = commentObj => dispatch => (
@@ -32,9 +32,10 @@ export const voteOnComment = (commentId, option) => dispatch => (
   postVoteOnComment(commentId, option).then(res => dispatch(voteOnCommentSuccess(res)))
 )
 
-export const receivePostComments = comments => ({
+export const receivePostComments = (comments, postId) => ({
   type: RECEIVE_POST_COMMENTS,
-  comments: comments
+  comments: comments,
+  postId: postId
 });
 
 export const editCommentSuccess = comment => ({

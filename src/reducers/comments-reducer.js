@@ -8,7 +8,8 @@ import {
 
 
 const initialCommentsState = {
-  currentViewingComments: []
+  currentViewingComments: [],
+  commentMapCount: {}
 }
 
 function comments (state = initialCommentsState, action) {
@@ -21,7 +22,11 @@ function comments (state = initialCommentsState, action) {
 
       return {
         ...state,
-        currentViewingComments: comments
+        currentViewingComments: comments,
+        commentMapCount: {
+          ...state.commentMapCount,
+          [action.postId]: comments.length
+        }       
       }
       
     case EDIT_COMMENT_SUCCESS:

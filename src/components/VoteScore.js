@@ -15,18 +15,19 @@ class VoteScore extends Component {
   render() {
     return (
       <div className='vote-score-wrap'>
-        <span>{'Vote Score: ' + this.props.voteScore + '  ' }</span>
+        <span>{ this.props.listview ? '' : 'Vote Score: ' }</span>
         <Icon link name='thumbs outline up' onClick={() => this.vote('upVote')} />
         <Icon link name='thumbs outline down' onClick={() => this.vote('downVote')} />
+        <span>{ this.props.voteScore + '  ' }</span>
       </div>
     )
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
   return {
-    voteOnPost: (postId, option) => dispatch(voteOnPost(postId, option))
+    postsMap: state.posts.postsMap
   }
 }
 
-export default connect(null, mapDispatchToProps)(VoteScore);
+export default connect(mapStateToProps, { voteOnPost })(VoteScore);

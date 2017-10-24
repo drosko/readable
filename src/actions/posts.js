@@ -4,7 +4,8 @@ import {
         fetchPostsByCategory,
         postAddPost, 
         putEditPost,
-        postVoteOnPost
+        postVoteOnPost,
+        deleteDeletePost
       } from '../utils/api';
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -12,6 +13,7 @@ export const RECEIVE_SINGLE_POST = 'RECEIVE_SINGLE_POST';
 export const RECEIVE_POSTS_BY_CATEGORY = 'RECEIVE_POSTS_BY_CATEGORY';
 export const ADD_EDIT_POST_SUCCESS = 'ADD_EDIT_POST_SUCCESS';
 export const VOTE_ON_POST_SUCCESS = 'VOTE_ON_POST_SUCCESS';
+export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 
 export const getAllPosts = () => dispatch => (
   fetchAllPosts().then(res => dispatch(receiveAllPosts(res)))
@@ -37,6 +39,10 @@ export const voteOnPost = (postId, option) => dispatch => {
   return postVoteOnPost(postId, option).then(res => {dispatch(voteOnPostSuccess(res))})
 }
 
+export const deletePost = postId => dispatch => (
+  deleteDeletePost(postId).then(res => dispatch(deletePostSuccess(res)))
+)
+
 export const receiveAllPosts = posts => ({
   type: RECEIVE_POSTS,
   posts
@@ -57,13 +63,12 @@ export const addEditPostSuccess = post => ({
   addedPost: post
 });
 
-export const voteOnPostSuccess = post => {
-  return {
-    type: VOTE_ON_POST_SUCCESS,
-    currentViewingPost: post
-  }
-};
+export const voteOnPostSuccess = post => ({
+  type: VOTE_ON_POST_SUCCESS,
+  currentViewingPost: post
+});
 
-
-
-
+export const deletePostSuccess = post => ({
+  type: DELETE_POST_SUCCESS,
+  deletedPost: post
+});

@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Table } from 'semantic-ui-react';
-import moment from 'moment';
+
 import { getCategories } from '../actions/categories';
 import { getAllPosts } from '../actions/posts';
 import TopBar from './TopBar';
+import PostListView from './PostListView';
+import { toArray } from '../utils/helpers';
 
 class Home extends Component {
   state = {
@@ -13,7 +15,6 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.getCategories();
     this.props.getAllPosts();
   }
 
@@ -43,38 +44,28 @@ class Home extends Component {
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>Post</Table.HeaderCell>
-                  <Table.HeaderCell>VoteScore</Table.HeaderCell>
+                  <Table.HeaderCell>Vote Score</Table.HeaderCell>
+                  <Table.HeaderCell>Author</Table.HeaderCell>
+                  <Table.HeaderCell>Comments</Table.HeaderCell>
                   <Table.HeaderCell>Category</Table.HeaderCell>
                   <Table.HeaderCell>Date</Table.HeaderCell>
+                  <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>              
                 {
-                  this.props.posts
+                  toArray(this.props.posts)
                     .sort((a, b) => {
                       return b[this.state.sortBy] - a[this.state.sortBy];
                     })                
                     .map((post) => (
-                      <Table.Row key={post.id}>
-                        <Table.Cell>
-                          <Link to={'/post/view/' + post.id}>{post.title}</Link>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <span>{post.voteScore}</span>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <span>{post.category}</span>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <span>{moment(post.timestamp).format('MMMM Do YYYY')}</span>
-                        </Table.Cell>
-                      </Table.Row>
+                      <PostListView post={post} key={post.id + '_' + post.title} />
                     ))
                 }              
               </Table.Body>
               <Table.Footer>
                 <Table.Row>
-                  <Table.HeaderCell colSpan='4'>
+                  <Table.HeaderCell colSpan='7'>
                     <Link to='/post/add' className="ui icon primary left labeled button" role="button"><i aria-hidden="true" className="plus icon"></i>New Post</Link>
                   </Table.HeaderCell>
                 </Table.Row>
@@ -87,18 +78,11 @@ class Home extends Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    getCategories: () => dispatch(getCategories()),
-    getAllPosts: () => dispatch(getAllPosts())
-  }
-}
-
 const mapStateToProps = (state) => { 
   return {
     categories: state.categories,
-    posts: state.posts.listAll
+    posts: state.posts.postsMap
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, { getCategories, getAllPosts })(Home);

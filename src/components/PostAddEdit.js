@@ -87,7 +87,6 @@ class PostAddEdit extends Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   render() {
-    console.log(this.props);
     const { postTitle, postAuthor, postBody, postCategory } = this.state;
 
     const catOptions = [
@@ -128,12 +127,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    addPost: (postObj) => dispatch(addPost(postObj)),
-    editPost: (postObj) => dispatch(editPost(postObj)),
-    getSinglePost: (id) => dispatch(getSinglePost(id))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostAddEdit);
+export default connect(mapStateToProps, { addPost, editPost, getSinglePost })(PostAddEdit);

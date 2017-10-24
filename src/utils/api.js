@@ -36,7 +36,7 @@ export function postAddPost (postObj) {
     ...urlOpts, 
     method: 'POST',
     body: postObj
-  });
+  }).then((res) => res.json());
 }
 
 export function putEditPost (postObj) {
@@ -44,14 +44,14 @@ export function putEditPost (postObj) {
     ...urlOpts, 
     method: 'PUT',
     body: postObj
-  }); 
+  }).then((res) => res.json()); 
 }
 
-export function deletePost (postId) {
+export function deleteDeletePost (postId) {
   return fetch(`${BASE_URL}/posts/${postId}`, { 
     ...urlOpts, 
     method: 'DELETE'
-  }); 
+  }).then(res => res.json()); 
 }
 
 export function postVoteOnPost (postId, option) {
