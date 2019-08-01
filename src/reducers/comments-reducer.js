@@ -16,7 +16,7 @@ function comments (state = initialCommentsState, action) {
 
   const { comments } = action;
   let currentViewingComments = state.currentViewingComments;
-//debugger;
+
   switch (action.type) {
     case RECEIVE_POST_COMMENTS:
 

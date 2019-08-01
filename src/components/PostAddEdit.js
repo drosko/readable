@@ -55,7 +55,6 @@ class PostAddEdit extends Component {
       body: postBody,
       category: postCategory
     }
-    //debugger;
 
     if (this.editMode) {
       this.props.addPost(JSON.stringify(submitObj)).then(() => { 

@@ -15,7 +15,7 @@ class TopBar extends Component {
     return (
       <Menu fixed='top' inverted>
         <Container>
-          <Menu.Item as='a' header>
+          <Menu.Item as='span' header>
             Readable
           </Menu.Item>
           
